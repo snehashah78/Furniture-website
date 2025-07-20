@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Sofa Showcase</title>
+  <style>
+    /* (Same CSS as before) */
+    body {
+      font-family: Arial, sans-serif;
+      background: #f5f5f5;
+      margin: 0;
+      padding: 20px;
+    }
+
+    h1 {
+      text-align: center;
+      margin-bottom: 30px;
+    }
+
+    .product-container {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 30px;
+    }
+
+    .product-card {
+      background: #fff;
+      border: 1px solid #ddd;
+      border-radius: 10px;
+      width: 300px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+      transition: transform 0.2s;
+    }
+
+    .product-card:hover {
+      transform: scale(1.02);
+    }
+
+    .product-image img {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+      border-top-left-radius: 10px;
+      border-top-right-radius: 10px;
+    }
+
+    .product-details {
+      padding: 15px;
+    }
+
+    .product-details h2 {
+      font-size: 18px;
+      margin: 0 0 10px;
+    }
+
+    .product-details p {
+      font-size: 14px;
+      color: #555;
+    }
+
+    .product-price {
+      font-size: 16px;
+      color: #b12704;
+      margin: 10px 0;
+      font-weight: bold;
+    }
+
+    .add-to-cart {
+      display: inline-block;
+      background-color: #ffa41c;
+      color: #111;
+      text-align: center;
+      padding: 10px 20px;
+      border-radius: 5px;
+      text-decoration: none;
+      font-weight: bold;
+      transition: background 0.3s;
+      cursor: pointer;
+    }
+
+    .add-to-cart:hover {
+      background-color: #f90;
+    }
+
+    .cart-link {
+      display: block;
+      text-align: right;
+      margin-bottom: 10px;
+      font-weight: bold;
+    }
+
+    .cart-link a {
+      text-decoration: none;
+      color: #007185;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="cart-link">
+    <a href="cart.html">🛒 View Cart</a>
+  </div>
+
+  <h1>🛋️ Sofa Collection</h1>
+
+  <div class="product-container" id="products"></div>
+
+  <script>
+    const products = [
+      {
+        id: 1,
+        name: "Modern 3-Seater Sofa",
+        desc: "Comfortable fabric sofa with wooden frame.",
+        price: 14999,
+        image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ1E1yfxXeVlVIErCn_w-dSUMZCXh_5Ht9wNQ&s"
+      },
+      {
+        id: 2,
+        name: "Luxury L-Shaped Sofa",
+        desc: "Spacious L-shaped sofa with premium cushions.",
+        price: 24500,
+        image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ1E1yfxXeVlVIErCn_w-dSUMZCXh_5Ht9wNQ&s"
+      },
+      {
+        id: 3,
+        name: "Compact Sofa Set",
+        desc: "Compact design for small spaces.",
+        price: 11799,
+        image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ1E1yfxXeVlVIErCn_w-dSUMZCXh_5Ht9wNQ&s"
+      }
+    ];
+
+    const container = document.getElementById('products');
+
+    products.forEach(product => {
+      const card = document.createElement('div');
+      card.className = 'product-card';
+      card.innerHTML = `
+        <div class="product-image">
+          <img src="${product.image}" alt="${product.name}">
+        </div>
+        <div class="product-details">
+          <h2>${product.name}</h2>
+          <p>${product.desc}</p>
+          <div class="product-price">₹${product.price}</div>
+          <button class="add-to-cart" onclick='addToCart(${JSON.stringify(product)})'>Add to Cart</button>
+        </div>
+      `;
+      container.appendChild(card);
+    });
+
+    function addToCart(product) {
+      let cart = JSON.parse(localStorage.getItem('cart')) || [];
+      cart.push(product);
+      localStorage.setItem('cart', JSON.stringify(cart));
+      alert("Item added to cart!");
+    }
+  </script>
+
+</body>
+</html>
